@@ -3,6 +3,7 @@ import { Shopping, Home, ProductsDetails } from "./pages";
 import { LoadingScreen, NavBar } from './components';
 import './App.css';
 import { useSelector } from 'react-redux';
+import './style/style.css'
 
 function App() {
 

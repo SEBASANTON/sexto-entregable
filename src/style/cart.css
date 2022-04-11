@@ -1,0 +1,118 @@
+.cart-modal{
+    position: fixed;
+    margin-top: 73px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, .3);
+    padding: 1.5rem;
+    width: 290px;
+    transition: 1s;
+    transform: translateX(290px);
+    overflow: auto;
+    text-align: left;
+    margin-bottom: 130px;
+}
+
+.open{
+    transform: translateX(0);
+    background-color: white ;
+}
+
+.cart-modal>h2{
+    color: rgb(236, 69, 18);
+    font-family: 'Secular One', sans-serif;
+}
+.cart-responsive{
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    align-items: center;
+}
+.button-delete{
+    color: red;
+    background-color: white;
+    border: transparent;
+    margin: 0.5rem;
+}
+
+.info-cart{
+    margin: 0 0.5rem;
+    font-size: 14px;
+}
+
+.title-cart{
+    margin: 0.5rem;
+    font-size: 14px;
+    width: 200px;
+    margin-top: -1.3rem;
+    cursor: pointer;
+
+}
+.quantity{
+    width: 40px;
+    padding: 0 3px;
+    text-align: center;
+    border: 1px solid rgba(155, 155, 155, 0.466);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+    border-radius: 4px;
+    margin: 0 0.5rem;
+    font-size: 14px;
+
+}
+.quantity~p{
+    text-align: right;
+    font-size: 14px;
+
+}
+.total-product{
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
+.shopp-product{
+    margin: 1.5rem 0;
+}
+.shopp-product>hr{
+    width: 230px;
+    margin-left: 0.3rem;
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+
+.price-responsive{
+    display: flex;
+    justify-content: space-between;
+}
+.purchase>button{
+    width: 230px;
+    height: 40px;
+    margin: auto;
+    background-color: rgb(236, 69, 18);
+    border: 1px solid rgb(236, 69, 18);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, .3);
+    color: white;
+    font-size: 15px;
+    align-items: center;
+    margin: 1rem;
+}
+.purchase{
+    position: fixed;
+    background-color: white;
+    text-align: center;
+    width: 290px;
+    height: 130px;
+    top: 10;
+    right: 0;
+    bottom: 0;
+    transition: 1s;
+    transform: translateX(290px);
+    overflow: auto;
+    padding: 1rem;
+}
+.open-purchase{
+    transform: translateX(0);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, .3);
+
+}

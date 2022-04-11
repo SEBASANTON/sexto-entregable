@@ -1,50 +1,107 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCartThunk, loginThunk } from '../redux/actions';
 import '../style/navbar.css'
+import Cart from './Cart';
+import logo from '../assets/logo.png'
+import { Link } from 'react-router-dom';
+import userJohn from '../assets/userJohn.webp'
+
 const NavBar = () => {
 
     const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isCartOpen, setIsCartOpen ] = useState(false);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loginError, setLoginError] = useState("");
 
-    localStorage.setItem("number","10")
+    const dispatch = useDispatch();
+
+    const openCart = () =>{
+        setIsCartOpen(!isCartOpen);
+        dispatch(getCartThunk())
+    }
 
     const login = e => {
         e.preventDefault();
         const credentials = {email,password}
-        axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/users/login/', credentials)
-            .then(res => localStorage.setItem("token", res.data.data.token))
-            /* .catch(error => {
-                console.log(error.response)
-            }) */
-    }
-
+        dispatch(loginThunk(credentials))
+            .then(res => {
+                localStorage.setItem("token", res.data.data.token)
+                setLoginError("");
+                setIsLoginOpen(false);
+            })
+            .catch(error => {
+                setLoginError(error.response.data.message)
+            })
+        }
+        
     return (
         <div className='navbar'>
-            <nav>
-                <strong>Products App</strong>
-                <button onClick={() => setIsLoginOpen(!isLoginOpen)}>
-                    Login
-                </button>
+            <nav className='navbar-responsive'>
+                <Link to="/">
+                <div className='navbar-img'>
+                    <img src={logo} alt="" />
+                </div>
+                </Link>
 
-            </nav>
+                <div className='navbar-button'>
+                    <button onClick={() => setIsLoginOpen(!isLoginOpen)} >
+                        <i className="fa-solid fa-user"></i>
+                    </button>
+
 
             <form onSubmit={login} className={`login ${isLoginOpen ? 'open' : ''} `}>
-                <input 
-                    type="email" 
-                    placeholder='Email...' 
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <input 
-                    type="password"
-                    placeholder='Passsword...' 
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
-                <button>Submit</button>
+
+                {
+                    localStorage.getItem("token") ? (
+                        <>
+                        <img src={userJohn} className="image-John"/><br/>
+                        <button onClick={() => localStorage.setItem("token", "")} type="button" className='button-John'>
+                            <b>Log out</b>
+                        </button>
+                        </>
+                    ) : (
+                        <div className='user-enter'>
+                            <img src={userJohn} className="image-John"/><br/>
+                            <div className='test-data'>
+                                <h4>Test data</h4>
+                                <p><i class="fa-solid fa-envelope"></i> john@gmail.com </p>
+                                <p><i class="fa-solid fa-lock"></i> john1234</p>
+                            </div>
+                            <input 
+                                type="email" 
+                                placeholder='Email...' 
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                            />
+                            <input 
+                                type="password"
+                                placeholder='Passsword...' 
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                            />
+                            <button>Submit</button>
+                            <p>{loginError}</p>
+                        </div>
+                    )
+                }
+
             </form>
-            
+
+                    <button>
+                        <i className="fa-solid fa-store"></i>
+                    </button>
+                    <button onClick={openCart}>
+                        <i className="fa-solid fa-cart-shopping"></i>
+                    </button>
+                </div>
+            </nav>
+
+
+            <Cart isOpen={isCartOpen}/>
         </div>
     );
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { filterCategoryThunk, filterHeadlineThunk, getCategoriesThunk, getProductsThunk } from '../redux/actions';
+import '../style/home.css'
 
 const Home = () => {
 
@@ -21,18 +22,20 @@ const Home = () => {
         e.preventDefault();
         dispatch(filterHeadlineThunk(headline));
     }
+
+    console.log(products)
  
     return (
         <div>
-            <h1>Home</h1>
-
-            <form onSubmit={searchProducts}>
+            <form onSubmit={searchProducts} className="search">
                 <input type="text"
-                placeholder='search news by headline'
+                placeholder='What are you looking for?'
                 value={headline} 
                 onChange= { e => setHeadline(e.target.value)}
-            />
-                <button>Search</button>
+                />
+                <button>
+                    <i className="fa-solid fa-magnifying-glass"></i>
+                </button>
             </form>
             
 
@@ -43,21 +46,32 @@ const Home = () => {
                     </button>
                 ))
             }
-            <ul>
+            <div className='products-responsive'>
 
                 {
                     products.length === 0 ? (
                         <p>We didn't found news with the filters</p>
                     ): (
                         products.map(productsItem => (
-                            <li key ={productsItem.id}>
-                                <Link to={`/products/${productsItem.id}`}>{productsItem.title}</Link>
-                            </li>
+                            <Link to={`/products/${productsItem.id}`} key ={productsItem.id} className="link">
+                                <div className="products">
+                                    <div className="images-hover">
+                                        <img className="over" src={productsItem.productImgs[1]} alt="" />
+                                        <img src={productsItem.productImgs[0]} alt="" />
+                                    </div>
+                                    <hr />
+                                    <div className='description'>
+                                    <p><b>{productsItem.title}</b></p>
+                                    <p><span><b> Price</b></span></p>
+                                    <p><b>$ {productsItem.price} </b></p>
+                                    </div>
+                                </div>
+                            </Link>
                         ))
                     )
                 }
                 
-            </ul>
+            </div>
         </div>
     );
 };
