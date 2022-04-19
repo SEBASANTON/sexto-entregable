@@ -1,11 +1,12 @@
 import axios from "axios"
-import { bindActionCreators } from "redux"
-
+/* import { bindActionCreators } from "redux"
+ */
 export const actions = {
     setProducts: "SET_PRODUCTS",
     setIsLoading: "SET_IS_LOADING",
     setCategories: "SET_ CATEGORIES",
-    setCart: "SET_ CART"
+    setCart: "SET_ CART",
+    setPurchases: "SET_PURCHASES"
 }
 
 const getConfig = () => ({
@@ -30,6 +31,11 @@ export const setCategories = categories => ({
 export const setCart = cart => ({
     type: actions.setCart,
     payload: cart
+})
+
+export const setPurchases = purchases => ({
+    type: actions.setPurchases,
+    payload: purchases
 })
 
 export const getProductsThunk = () => {
@@ -91,7 +97,8 @@ export const getCartThunk = () => {
             .then(res => dispatch(setCart(res.data.data.cart.products)))
             .catch(error => {
                 if(error.response.status === 404){
-                    console.log("El carrito esta vacio")
+                    console.log("El carrito esta vacio");
+                    dispatch(setCart([]))
                 }
             })
             .finally(()=> dispatch(setIsLoading(false)));
@@ -107,4 +114,25 @@ export const deleteCartThunk = id => {
     }
 }
 
-//axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/purchases/',{}, getConfig())
+export const purchasesThunk = () => {
+    return dispatch => {
+        dispatch(setIsLoading(true));
+        return axios.get('https://ecommerce-api-react.herokuapp.com/api/v1/purchases/', getConfig())
+            .then(res => (
+                dispatch(setPurchases(res.data.data.purchases))
+                ))
+            .finally(() => dispatch(setIsLoading(false)));
+    }
+}
+
+export const addPurchasesThunk = locations => {
+    return dispatch => {
+        dispatch(setIsLoading(true));
+        return axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/purchases/', locations, getConfig())
+            .finally(() => dispatch(setIsLoading(false)));
+    }
+}
+
+
+
+

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteCartThunk } from '../redux/actions';
+import { addPurchasesThunk, deleteCartThunk, getCartThunk, purchasesThunk, setCart } from '../redux/actions';
 import '../style/cart.css'
 
-const Cart = ({isOpen}) => {
+const Cart = ({isOpen,setIsCartOpen}) => {
+    const [street, setStreet ] = useState("Green St.1456")
+    const [colony, setColony] = useState("Southwest")
+    const [zipCode, setZipCode] = useState(12345)
+    const [city, setCity] = useState("USA")
+    const [references, setReferences] = useState("Some references")
+
 
     const cart = useSelector(state => state.cart)
 
@@ -12,16 +18,24 @@ const Cart = ({isOpen}) => {
 
     const dispatch = useDispatch();
 
-    console.log(cart)
-
-  /*   let total = cart.price + cart.productsInCart?.quantity
-
-    console.log(cart[0]?.price) */
-
     const totals = cart.map(car => car.price * car.productsInCart?.quantity ) 
     const total = totals.reduce((a, b) => a + b, 0);
-    console.log(total) 
-
+    
+    const addPurchases = () => {
+        const locations = {
+            street,
+            colony,
+            zipCode,
+            city,
+            references,
+        }
+        if(cart.length > 0){
+            navigate('/purchases/')
+            dispatch(addPurchasesThunk(locations))
+            dispatch(purchasesThunk())
+            setIsCartOpen(!isOpen)
+        }
+    }
 
     return (
         <div>
@@ -54,7 +68,9 @@ const Cart = ({isOpen}) => {
                 <p>Total: </p>
                 <p><b>$ {total}</b></p>
             </div>
-            <button>Checkout</button>
+            <button onClick={addPurchases}>
+                Checkout
+            </button>
         </div>
         </div>
     );

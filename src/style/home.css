@@ -1,7 +1,8 @@
 
 .search{
     margin: 1rem;
-    margin-top: 6rem;
+    margin-top: 7rem;
+    margin-bottom: 1.5rem;
 }
 .search>input{
     width: 70vw;
@@ -25,7 +26,7 @@
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 1rem;
+    margin: 1rem ;
 }
 
 .images-hover{
@@ -88,12 +89,112 @@ hr{
     margin-top: 0.5rem;
 }
 
+.filters{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, .3);
+    padding: 1.5rem;
+    width: 290px;
+    transition: 1s;
+    transform: translateX(290px);
+    overflow: auto;
+    text-align: left;
+
+}
+
+.filters.open{
+    transform: translateX(0);
+    background-color: white ;
+    z-index: 1;
+}
+.filter-button{
+    text-align: right;
+    margin: 2rem;
+    margin-right: 7vw;
+}
+.filter-button>button{
+    text-align: right;
+    font-size: 18px;
+    color: rgb(95, 95, 95);
+    border: transparent;
+    background-color: white;
+}
+.filters>button{
+    background-color: aqua;
+    display: block;
+    font-size: 16px;
+    color: rgb(95, 95, 95);
+    border: transparent;
+    background-color: white;
+    margin: 1rem;
+}
+.filters .close{
+    margin-top: -0.5rem;
+    margin-left: 13.5rem;
+    font-size: 20px;
+}
+
+.filters>hr{
+    margin: 1rem 0;
+    width: 235px;
+}
+
+
 @media (min-width: 576px){
     .products{
-        width: 250px;
+        width: 41vw;
         height: 400px;
     }
 }
 @media (min-width: 992px){
+    .filter-button{
+        display: none
+    }
+
+    .filters.open{
+        transform: translateX(0);
+        background-color: white ;
+        z-index: 1;
+    }
+    .filters .close{
+        display: none;
+    }
+    .filters{
+        margin-top: 80px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, .3);
+        padding: 1.5rem;
+        width: 290px;
+        transition: 1s;
+        transform: translateX(0);
+        overflow: auto;
+        text-align: left;
     
+    }
+    .home{
+        margin-left: 290px;
+    }
+    .search>input{
+        width: 80vw;
+        max-width: 57vw;
+        height: 40px;
+        padding: 0.8rem;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, .3);
+        border: 1px solid rgba(92, 92, 92, 0.267);
+    }
+    .products{
+        width: 29vw;
+        height: 400px;
+    }
+}
+@media (min-width: 1200px){
+    .products{
+        width: 250px;
+        height: 400px;
+    }
 }

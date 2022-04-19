@@ -1,12 +1,12 @@
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getCartThunk, loginThunk } from '../redux/actions';
+import { getCartThunk, loginThunk, purchasesThunk } from '../redux/actions';
 import '../style/navbar.css'
 import Cart from './Cart';
 import logo from '../assets/logo.png'
 import { Link } from 'react-router-dom';
 import userJohn from '../assets/userJohn.webp'
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
 
@@ -18,26 +18,41 @@ const NavBar = () => {
     const [loginError, setLoginError] = useState("");
 
     const dispatch = useDispatch();
-
-    const openCart = () =>{
-        setIsCartOpen(!isCartOpen);
-        dispatch(getCartThunk())
-    }
-
+    const navigate = useNavigate();
+    
     const login = e => {
         e.preventDefault();
         const credentials = {email,password}
         dispatch(loginThunk(credentials))
-            .then(res => {
-                localStorage.setItem("token", res.data.data.token)
-                setLoginError("");
-                setIsLoginOpen(false);
-            })
-            .catch(error => {
-                setLoginError(error.response.data.message)
-            })
+        .then(res => {
+            localStorage.setItem("token", res.data.data.token)
+            setLoginError("");
+            setIsLoginOpen(false);
+        })
+        .catch(error => {
+            setLoginError(error.response.data.message)
+        })
+    }
+
+    const openPurchases = () => {
+        if(localStorage.getItem("token")){
+            navigate('/purchases/')
+            dispatch(purchasesThunk())
+        }else{
+            setIsLoginOpen(!isLoginOpen);
         }
-        
+    }
+
+    const openCart = () =>{
+        if(localStorage.getItem("token")){
+            setIsCartOpen(!isCartOpen);
+            dispatch(getCartThunk())
+        }else{
+            setIsLoginOpen(!isLoginOpen);
+        }
+    }
+    
+
     return (
         <div className='navbar'>
             <nav className='navbar-responsive'>
@@ -91,9 +106,10 @@ const NavBar = () => {
 
             </form>
 
-                    <button>
+                    <button onClick={openPurchases}>
                         <i className="fa-solid fa-store"></i>
                     </button>
+                    
                     <button onClick={openCart}>
                         <i className="fa-solid fa-cart-shopping"></i>
                     </button>
@@ -101,7 +117,8 @@ const NavBar = () => {
             </nav>
 
 
-            <Cart isOpen={isCartOpen}/>
+            <Cart isOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
+
         </div>
     );
 };

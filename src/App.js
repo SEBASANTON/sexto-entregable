@@ -1,5 +1,5 @@
 import {HashRouter, Routes, Route} from 'react-router-dom';
-import { Shopping, Home, ProductsDetails } from "./pages";
+import { Home, ProductsDetails, Purchases } from "./pages";
 import { LoadingScreen, NavBar } from './components';
 import './App.css';
 import { useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ function App() {
 
           <Route path="/" element={<Home/>}/>
           <Route path="/products/:id" element={<ProductsDetails/>}/>
-          <Route path="/shopping" element={<Shopping/>}/>
+          <Route path="/purchases" element={<Purchases/>}/>
 
         </Routes>
       </HashRouter>

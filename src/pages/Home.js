@@ -9,6 +9,7 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const [headline, setHeadline ] = useState("");
+    const [isFilters, setIsFilters] = useState(false);
 
     const products = useSelector(state => state.products);
     const categories = useSelector(state=> state.categories)
@@ -22,11 +23,9 @@ const Home = () => {
         e.preventDefault();
         dispatch(filterHeadlineThunk(headline));
     }
-
-    console.log(products)
  
     return (
-        <div>
+        <div className="home">
             <form onSubmit={searchProducts} className="search">
                 <input type="text"
                 placeholder='What are you looking for?'
@@ -38,14 +37,29 @@ const Home = () => {
                 </button>
             </form>
             
+            <div className='filter-button'>
+                <button  onClick={() => setIsFilters(!isFilters)}>
+                    <i className="fa-solid fa-filter"></i> Filters
+                </button>
+            </div>
+            
+            <div className={`filters ${isFilters ? 'open' : ''} `}>
+                <button className="close" onClick={() => setIsFilters(false)}>
+                    <i className="fa-solid fa-xmark"></i>
+                </button>
+                <p>Category</p>
+                <hr />
+                {
+                    categories.map(category => (
+                        <button key={category.id} onClick={()=> dispatch(filterCategoryThunk(category.id), setIsFilters(false))}>
+                            {category.name}
+                        </button>
 
-            {
-                categories.map(category => (
-                    <button key={category.id} onClick={()=> dispatch(filterCategoryThunk(category.id))}>
-                        {category.name}
-                    </button>
-                ))
-            }
+                    ))
+                }
+
+            </div>
+
             <div className='products-responsive'>
 
                 {

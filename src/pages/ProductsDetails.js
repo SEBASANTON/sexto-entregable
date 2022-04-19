@@ -18,15 +18,17 @@ const ProductsDetails = () => {
 
     useEffect(() => {
         dispatch(getProductsThunk())
-        
     },[dispatch]);
+
     
     const productsFound = products.find(productsItem => productsItem.id === Number(id));
     
     useEffect(()=> {
         if(productsFound){
             axios.get(`https://ecommerce-api-react.herokuapp.com/api/v1/products/?category=${productsFound?.category.id}`)
-                .then(res => setProductsFiltered(res.data.data.products));
+                .then(res => 
+                    setProductsFiltered(res.data.data.products),
+                    );
         }
     },[dispatch, productsFound])
 
@@ -35,7 +37,7 @@ const ProductsDetails = () => {
             id,
             quantity,
         }
-        dispatch(addFavoriteThunk(products))
+            dispatch(addFavoriteThunk(products))
     }
 
     return (

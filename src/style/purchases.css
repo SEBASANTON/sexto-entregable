@@ -1,0 +1,59 @@
+.purchases{
+    margin-top: 6rem;
+    text-align: left;
+}
+.purchases>h2{
+    margin: 1.5rem 8vw;
+}
+.shopping{
+    margin: 1.5rem 6vw;
+    padding: 1rem;
+    border: 1px solid rgba(155, 155, 155, 0.822);
+    border-radius: 10px;
+}
+.purchases>.link-responsive{
+    margin-left: 4vw;
+}
+.date{
+    padding-left: 0.5rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    margin: 0 -1rem;
+    border-bottom: 1px solid rgba(155, 155, 155, 0.801);
+}
+.shopping-responsive{
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem  0.5rem;
+}
+.shopping-responsive>.quantity{
+    width: 58px;
+    height: 23px;
+    padding: 0 3px;
+    text-align: center;
+    border: 1px solid rgba(155, 155, 155, 0.466);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+    border-radius: 4px;
+    font-size: 14px;
+
+}
+.shopping-title{
+    width: 50vw;
+}
+.shopping-price{
+    text-align: left;
+    width: 25vw;
+}
+
+@media (min-width: 900px){
+    .purchases>.link-responsive{
+        margin-left: 12vw;
+    }
+    .purchases>h2{
+        margin: 1.5rem 14vw;
+    }
+    .shopping{
+        margin: 1.5rem 14vw;
+    }
+}
