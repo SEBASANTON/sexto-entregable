@@ -5,11 +5,13 @@ import { addPurchasesThunk, deleteCartThunk, getCartThunk, purchasesThunk, setCa
 import '../style/cart.css'
 
 const Cart = ({isOpen,setIsCartOpen}) => {
-    const [street, setStreet ] = useState("Green St.1456")
-    const [colony, setColony] = useState("Southwest")
-    const [zipCode, setZipCode] = useState(12345)
-    const [city, setCity] = useState("USA")
-    const [references, setReferences] = useState("Some references")
+
+
+    const street = "Green St.1456"
+    const colony = "Southwest"
+    const zipCode = 12345
+    const city = "USA"
+    const references = "Some references"
 
 
     const cart = useSelector(state => state.cart)

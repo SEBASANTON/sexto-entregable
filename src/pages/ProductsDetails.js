@@ -52,7 +52,7 @@ const ProductsDetails = () => {
             <div className='productsDetail-responsive'>
 
                 <div className='images-responsive'>
-                    <img src={productsFound?.productImgs?.[0]}></img>
+                    <img src={productsFound?.productImgs?.[0]} alt=""></img>
                 </div>
 
                 <div>

@@ -73,14 +73,14 @@ const NavBar = () => {
                 {
                     localStorage.getItem("token") ? (
                         <>
-                        <img src={userJohn} className="image-John"/><br/>
+                        <img src={userJohn} alt="" className="image-John"/><br/>
                         <button onClick={() => localStorage.setItem("token", "")} type="button" className='button-John'>
                             <b>Log out</b>
                         </button>
                         </>
                     ) : (
                         <div className='user-enter'>
-                            <img src={userJohn} className="image-John"/><br/>
+                            <img src={userJohn} alt="" className="image-John"/><br/>
                             <div className='test-data'>
                                 <h4>Test data</h4>
                                 <p><i class="fa-solid fa-envelope"></i> john@gmail.com </p>
