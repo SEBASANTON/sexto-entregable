@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addPurchasesThunk, deleteCartThunk, getCartThunk, purchasesThunk, setCart } from '../redux/actions';
+import { addPurchasesThunk, deleteCartThunk, purchasesThunk } from '../redux/actions';
 import '../style/cart.css'
 
 const Cart = ({isOpen,setIsCartOpen}) => {
