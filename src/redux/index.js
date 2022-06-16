@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     categories: [],
     cart: [],
     purchases: [],
+    isLoginOpen: false,
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -37,6 +38,11 @@ const reducer = (state = INITIAL_STATE, action) => {
                 return{
                     ...state,
                     purchases: action.payload
+                }
+            case actions.setIsLoginOpen:
+                return{
+                    ...state,
+                    isLoginOpen: action.payload
                 }
                 
         default:

@@ -3,13 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { addFavoriteThunk, getProductsThunk } from '../redux/actions';
+import { addFavoriteThunk, getProductsThunk, setIsLoginOpen } from '../redux/actions';
 import '../style/productsDetails.css'
 
 const ProductsDetails = () => {
     
     const dispatch = useDispatch();
     const {id} = useParams();
+
+    const isLoginOpen = useSelector(state => state.isLoginOpen)
     
     const [productsFiltered, setProductsFiltered ] = useState([]);
     const [ quantity, setQuantity ] = useState(1);
@@ -18,6 +20,7 @@ const ProductsDetails = () => {
 
     useEffect(() => {
         dispatch(getProductsThunk())
+
     },[dispatch]);
 
     
@@ -38,6 +41,12 @@ const ProductsDetails = () => {
             quantity,
         }
             dispatch(addFavoriteThunk(products))
+            .catch(error => {
+                if(error.response.status === 401){
+                    console.log("El carro esta vacio")
+                    dispatch(setIsLoginOpen(!isLoginOpen))
+                }
+            })
     }
 
     return (
@@ -69,7 +78,7 @@ const ProductsDetails = () => {
                         <div className="input-container">
                             <p><label htmlFor="queantity">Quantity</label></p>
                             <button onClick={() => setQuantity(quantity-1)} disabled={quantity < 2}>-</button>
-                            <input type="text" id="queantity" value={quantity} onChange={e => setQuantity(e.target.value)} className="input-queantity" disabled/>
+                            <input type="text" value={quantity} onChange={e => setQuantity(e.target.value)} className="input-queantity" disabled/>
                             <button onClick={() => setQuantity(quantity+1)}>+</button>
                         </div>
                     </div>

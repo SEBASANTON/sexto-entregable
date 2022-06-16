@@ -6,7 +6,8 @@ export const actions = {
     setIsLoading: "SET_IS_LOADING",
     setCategories: "SET_ CATEGORIES",
     setCart: "SET_ CART",
-    setPurchases: "SET_PURCHASES"
+    setPurchases: "SET_PURCHASES",
+    setIsLoginOpen: "SET_IS_LOGIN_OPEN",
 }
 
 const getConfig = () => ({
@@ -36,6 +37,11 @@ export const setCart = cart => ({
 export const setPurchases = purchases => ({
     type: actions.setPurchases,
     payload: purchases
+})
+
+export const setIsLoginOpen = isLoginOpen => ({
+    type: actions.setIsLoginOpen,
+    payload: isLoginOpen
 })
 
 export const getProductsThunk = () => {
@@ -81,6 +87,14 @@ export const loginThunk = credentials => {
             .finally(()=> dispatch(setIsLoading(false)));
     } 
 } 
+
+export const createUserThunk = information => {
+    return dispatch => {
+        dispatch(setIsLoading(true))
+        return axios.post('https://ecommerce-api-react.herokuapp.com/api/v1/users/', information)
+            .finally(() => dispatch(setIsLoading(false)));
+    }
+}
 
 export const addFavoriteThunk = products => {
     return dispatch => {
